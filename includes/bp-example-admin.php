@@ -130,11 +130,11 @@ function bp_example_install_tables() {
 	/**
 	 * The dbDelta call is commented out so the example table is not installed.
 	 * Once you define the SQL for your new table, uncomment this line to install
-	 * the table. (Make sure you increment the BP_EXAMPLE_DB_VERSION constant though).
+	 * the table. (Make sure you increment the BP_WP_PRESENT_DB_VERSION constant though).
 	 */
 	dbDelta($sql);
 
-	update_site_option( 'bp-example-db-version', BP_EXAMPLE_DB_VERSION );
+	update_site_option( 'bp-example-db-version', BP_WP_PRESENT_DB_VERSION );
 }
 //add_action( 'admin_init', 'bp_example_install_tables' );
 ?>

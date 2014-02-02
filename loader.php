@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: BuddyPress Skeleton Component
+Plugin Name: BuddyPress WP Present Component
 Plugin URI: http://example.org/my/awesome/bp/component
 Description: This BuddyPress component is the greatest thing since sliced bread.
 Version: 1.6.2
@@ -8,8 +8,8 @@ Revision Date: MMMM DD, YYYY
 Requires at least: What WP version, what BuddyPress version? ( Example: WP 3.2.1, BuddyPress 1.5 )
 Tested up to: What WP version, what BuddyPress version?
 License: (Example: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html)
-Author: Dr. Jan Itor
-Author URI: http://example.org/some/cool/developer
+Author: Steven K Word
+Author URI: http://stevenword.com
 Network: true
 */
 
@@ -39,14 +39,14 @@ Network: true
  *************************************************************************************************************/
 
 // Define a constant that can be checked to see if the component is installed or not.
-define( 'BP_EXAMPLE_IS_INSTALLED', 1 );
+define( 'BP_WP_PRESENT_IS_INSTALLED', 1 );
 
 // Define a constant that will hold the current version number of the component
 // This can be useful if you need to run update scripts or do compatibility checks in the future
-define( 'BP_EXAMPLE_VERSION', '1.6.2' );
+define( 'BP_WP_PRESENT_VERSION', '1.6.2' );
 
 // Define a constant that we can use to construct file paths throughout the component
-define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );
+define( 'BP_WP_PRESENT_PLUGIN_DIR', dirname( __FILE__ ) );
 
 /* Define a constant that will hold the database version number that can be used for upgrading the DB
  *
@@ -55,16 +55,16 @@ define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );
  *
  * Also, if you have errors when testing the component for the first time, make sure that you check to
  * see if the table(s) got created. If not, you'll most likely need to increment this constant as
- * BP_EXAMPLE_DB_VERSION was written to the wp_usermeta table and the install function will not be
+ * BP_WP_PRESENT_DB_VERSION was written to the wp_usermeta table and the install function will not be
  * triggered again unless you increment the version to a number higher than stored in the meta data.
  */
-define ( 'BP_EXAMPLE_DB_VERSION', '1' );
+define ( 'BP_WP_PRESENT_DB_VERSION', '1' );
 
 /* Only load the component if BuddyPress is loaded and initialized. */
 function bp_example_init() {
 	// Because our loader file uses BP_Component, it requires BP 1.5 or greater.
 	if ( version_compare( BP_VERSION, '1.3', '>' ) )
-		require( BP_EXAMPLE_PLUGIN_DIR . '/includes/bp-example-loader.php' );
+		require( BP_WP_PRESENT_PLUGIN_DIR . '/includes/bp-example-loader.php' );
 }
 add_action( 'bp_include', 'bp_example_init' );
 

@@ -10,8 +10,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * you can use this code to allow them to add new definitions to the wp-config.php file and set the value there.
  *
  *
- *	if ( !defined( 'BP_EXAMPLE_CONSTANT' ) )
- *		define ( 'BP_EXAMPLE_CONSTANT', 'some value' // or some value without quotes if integer );
+ *	if ( !defined( 'BP_WP_PRESENT_CONSTANT' ) )
+ *		define ( 'BP_WP_PRESENT_CONSTANT', 'some value' // or some value without quotes if integer );
  */
 
 /**
@@ -26,8 +26,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * _e( 'This text will be translatable', 'bp-example' ); // Echos the first parameter value
  */
 
-if ( file_exists( BP_EXAMPLE_PLUGIN_DIR . '/languages/' . get_locale() . '.mo' ) )
-	load_textdomain( 'bp-example', BP_EXAMPLE_PLUGIN_DIR . '/languages/' . get_locale() . '.mo' );
+if ( file_exists( BP_WP_PRESENT_PLUGIN_DIR . '/languages/' . get_locale() . '.mo' ) )
+	load_textdomain( 'bp-example', BP_WP_PRESENT_PLUGIN_DIR . '/languages/' . get_locale() . '.mo' );
 
 /**
  * Implementation of BP_Component
@@ -55,7 +55,7 @@ class BP_Example_Component extends BP_Component {
 	 *               various places through the BuddyPress admin screens to identify it.
 	 *   (3) $path - The path to your plugin directory. Primarily, this is used by
 	 *		 BP_Component::includes(), to include your plugin's files. See loader.php
-	 *		 to see how BP_EXAMPLE_PLUGIN_DIR was defined.
+	 *		 to see how BP_WP_PRESENT_PLUGIN_DIR was defined.
 	 *
 	 * @package BuddyPress_Skeleton_Component
 	 * @since 1.6
@@ -66,7 +66,7 @@ class BP_Example_Component extends BP_Component {
 		parent::start(
 			'example',
 			__( 'Example', 'bp-example' ),
-			BP_EXAMPLE_PLUGIN_DIR
+			BP_WP_PRESENT_PLUGIN_DIR
 		);
 
 		/**
@@ -181,7 +181,7 @@ class BP_Example_Component extends BP_Component {
 		// As an example of how you might do it manually, let's include the functions used
 		// on the WordPress Dashboard conditionally:
 		if ( is_admin() || is_network_admin() ) {
-			include( BP_EXAMPLE_PLUGIN_DIR . '/includes/bp-example-admin.php' );
+			include( BP_WP_PRESENT_PLUGIN_DIR . '/includes/bp-example-admin.php' );
 		}
 	}
 
@@ -194,7 +194,7 @@ class BP_Example_Component extends BP_Component {
 	 *				  in the URL http://testbp.com/members/boone/example, the
 	 *				  'example' portion of the URL is formed by the 'slug'.
 	 *				  Site admins can customize this value by defining
-	 *				  BP_EXAMPLE_SLUG in their wp-config.php or bp-custom.php
+	 *				  BP_WP_PRESENT_SLUG in their wp-config.php or bp-custom.php
 	 *				  files.
 	 *   - 'root_slug'		- This is the string used to create URLs when your component
 	 *				  adds navigation to the root of the site. In other words,
@@ -233,8 +233,8 @@ class BP_Example_Component extends BP_Component {
 		global $bp;
 
 		// Defining the slug in this way makes it possible for site admins to override it
-		if ( !defined( 'BP_EXAMPLE_SLUG' ) )
-			define( 'BP_EXAMPLE_SLUG', $this->id );
+		if ( !defined( 'BP_WP_PRESENT_SLUG' ) )
+			define( 'BP_WP_PRESENT_SLUG', $this->id );
 
 		// Global tables for the example component. Build your table names using
 		// $bp->table_prefix (instead of hardcoding 'wp_') to ensure that your component
@@ -245,8 +245,8 @@ class BP_Example_Component extends BP_Component {
 
 		// Set up the $globals array to be passed along to parent::setup_globals()
 		$globals = array(
-			'slug'                  => BP_EXAMPLE_SLUG,
-			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_EXAMPLE_SLUG,
+			'slug'                  => BP_WP_PRESENT_SLUG,
+			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_WP_PRESENT_SLUG,
 			'has_directory'         => true, // Set to false if not required
 			'notification_callback' => 'bp_example_format_notifications',
 			'search_string'         => __( 'Search Examples...', 'buddypress' ),
