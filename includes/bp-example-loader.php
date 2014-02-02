@@ -64,7 +64,7 @@ class BP_WP_PRESENT_Component extends BP_Component {
 		global $bp;
 
 		parent::start(
-			'example',
+			WP_Present_Core::POST_TYPE_TAXONOMY,
 			__( 'Example', 'bp-example' ),
 			BP_WP_PRESENT_PLUGIN_DIR
 		);
@@ -273,7 +273,7 @@ class BP_WP_PRESENT_Component extends BP_Component {
 	function setup_nav() {
 		// Add 'Example' to the main navigation
 		$main_nav = array(
-			'name' 		      => __( 'Example', 'bp-example' ),
+			'name' 		      => __( WP_Present_Core::TAXONOMY_NAME, 'bp-example' ),
 			'slug' 		      => bp_get_example_slug(),
 			'position' 	      => 80,
 			'screen_function'     => 'bp_example_screen_one',
