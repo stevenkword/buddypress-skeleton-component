@@ -39,7 +39,7 @@ if ( file_exists( BP_WP_PRESENT_PLUGIN_DIR . '/languages/' . get_locale() . '.mo
  * @package BuddyPress_Skeleton_Component
  * @since 1.6
  */
-class BP_Example_Component extends BP_Component {
+class BP_WP_PRESENT_Component extends BP_Component {
 
 	/**
 	 * Constructor method
@@ -266,7 +266,7 @@ class BP_Example_Component extends BP_Component {
 	 * The navigation elements created here are responsible for the main site navigation (eg
 	 * Profile > Activity > Mentions), as well as the navigation in the BuddyBar. WP Admin Bar
 	 * navigation is broken out into a separate method; see
-	 * BP_Example_Component::setup_admin_bar().
+	 * BP_WP_PRESENT_Component::setup_admin_bar().
 	 *
 	 * @global obj $bp
 	 */
@@ -324,7 +324,7 @@ class BP_Example_Component extends BP_Component {
 	 * custom post types for that data, instead of creating custom database tables.
 	 *
 	 * In the future, BuddyPress will have its own bp_register_post_types hook. For the moment,
-	 * hook to init. See BP_Example_Component::__construct().
+	 * hook to init. See BP_WP_PRESENT_Component::__construct().
 	 *
 	 * @package BuddyPress_Skeleton_Component
 	 * @since 1.6
@@ -365,7 +365,7 @@ class BP_Example_Component extends BP_Component {
  * Loads your component into the $bp global
  *
  * This function loads your component into the $bp global. By hooking to bp_loaded, we ensure that
- * BP_Example_Component is loaded after BuddyPress's core components. This is a good thing because
+ * BP_WP_PRESENT_Component is loaded after BuddyPress's core components. This is a good thing because
  * it gives us access to those components' functions and data, should our component interact with
  * them.
  *
@@ -386,7 +386,7 @@ class BP_Example_Component extends BP_Component {
 function bp_example_load_core_component() {
 	global $bp;
 
-	$bp->example = new BP_Example_Component;
+	$bp->example = new BP_WP_PRESENT_Component;
 }
 add_action( 'bp_loaded', 'bp_example_load_core_component' );
 
