@@ -391,7 +391,7 @@ add_action( 'bp_loaded', 'bp_example_load_core_component' );
 
 
 /********** CUSTOM /**********/
-//Force registration of user blogs
+// Force registration of user blogs
 function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 
 	$user_blogs = get_blogs_of_user( $user->ID );
@@ -410,7 +410,6 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
-		error_log(var_export($new_blog_id));
 	}
 }
 add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
