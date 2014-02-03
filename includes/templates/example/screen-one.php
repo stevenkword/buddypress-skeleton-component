@@ -1,5 +1,4 @@
 <?php get_header() ?>
-
 	<div id="content">
 		<div class="padder">
 
@@ -19,25 +18,44 @@
 
 				<div class="item-list-tabs no-ajax" id="subnav">
 					<ul>
-						<?php bp_get_options_nav() ?>
+						<?php //bp_get_options_nav() ?>
 					</ul>
 				</div>
+				<!---
+				<header class="entry-header">
+					<h2 <?php hybrid_attr( 'entry-title' ); ?>><?php bp_displayed_user_fullname(); ?>'s' Presentations</h2>
+				</header><!-- .entry-header -->
+				<?php
+				// The Query
+				$the_query = new WP_Query( array(
+					'post_type' => 'presentations',
+				 ) );
 
-				<h4><?php _e( 'Welcome to Screen One', 'bp-example' ) ?></h4>
-				<p><?php printf( __( 'Send %s a <a href="%s" title="Send high-five!">high-five!</a>', 'bp-example' ), bp_get_displayed_user_fullname(), wp_nonce_url( bp_displayed_user_domain() . bp_current_component() . '/screen-one/send-h5/', 'bp_example_send_high_five' ) ) ?></p>
+				// The Loop
+				if ( $the_query->have_posts() ) {
+					echo '<ul>';
+					while ( $the_query->have_posts() ) {
 
-				<?php if ( $high_fives = bp_example_get_highfives_for_user( bp_displayed_user_id() ) ) : ?>
-					<h4><?php _e( 'Received High Fives!', 'bp-example' ) ?></h4>
-
-					<table id="high-fives">
-						<?php foreach ( $high_fives as $user_id ) : ?>
-						<tr>
-							<td width="1%"><?php echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'width' => 25, 'height' => 25 ) ) ?></td>
-							<td>&nbsp; <?php echo bp_core_get_userlink( $user_id ) ?></td>
-			 			</tr>
-						<?php endforeach; ?>
-					</table>
-				<?php endif; ?>
+						$the_query->the_post();
+						?>
+						<li>
+							<div>
+								<!-- Display the Title as a link to the Post's permalink. -->
+								<h3>
+									<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+								</h3>
+								<p>Last Update 7 Mins ago</p>
+							</div>
+						</li>
+						<?php
+					}
+					echo '</ul>';
+				} else {
+					// no posts found
+				}
+				/* Restore original Post Data */
+				wp_reset_postdata();
+				?>
 
 			</div><!-- #item-body -->
 

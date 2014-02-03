@@ -117,7 +117,7 @@ function bp_example_screen_one() {
 	 * display the corresponding information. The functions are presented below:
 	 */
 	function bp_example_screen_one_title() {
-		_e( 'Screen One', 'bp-example' );
+		_e( 'PresentationsSteven', 'bp-example' );
 	}
 
 	function bp_example_screen_one_content() {
@@ -147,83 +147,6 @@ function bp_example_screen_one() {
 				<?php endforeach; ?>
 			</table>
 		<?php endif; ?>
-	<?php
-	}
-
-/**
- * bp_example_screen_two()
- *
- * Sets up and displays the screen output for the sub nav item "example/screen-two"
- */
-function bp_example_screen_two() {
-	global $bp;
-
-	/**
-	 * On the output for this second screen, as an example, there are terms and conditions with an
-	 * "Accept" link (directs to http://example.org/members/andy/example/screen-two/accept)
-	 * and a "Reject" link (directs to http://example.org/members/andy/example/screen-two/reject)
-	 */
-
-	if ( bp_is_example_component() && bp_is_current_action( 'screen-two' ) && bp_is_action_variable( 'accept', 0 ) ) {
-		if ( bp_example_accept_terms() ) {
-			/* Add a success message, that will be displayed in the template on the next page load */
-			bp_core_add_message( __( 'Terms were accepted!', 'bp-example' ) );
-		} else {
-			/* Add a failure message if there was a problem */
-			bp_core_add_message( __( 'Terms could not be accepted.', 'bp-example' ), 'error' );
-		}
-
-		/**
-		 * Now redirect back to the page without any actions set, so the user can't carry out actions multiple times
-		 * just by refreshing the browser.
-		 */
-		bp_core_redirect( bp_loggedin_user_domain() . bp_get_example_slug() );
-	}
-
-	if ( bp_is_example_component() && bp_is_current_action( 'screen-two' ) && bp_is_action_variable( 'reject', 0 ) ) {
-		if ( bp_example_reject_terms() ) {
-			/* Add a success message, that will be displayed in the template on the next page load */
-			bp_core_add_message( __( 'Terms were rejected!', 'bp-example' ) );
-		} else {
-			/* Add a failure message if there was a problem */
-			bp_core_add_message( __( 'Terms could not be rejected.', 'bp-example' ), 'error' );
-		}
-
-		/**
-		 * Now redirect back to the page without any actions set, so the user can't carry out actions multiple times
-		 * just by refreshing the browser.
-		 */
-		bp_core_redirect( bp_loggedin_user_domain() . bp_get_example_slug() );
-	}
-
-	/**
-	 * If the user has not Accepted or Rejected anything, then the code above will not run,
-	 * we can continue and load the template.
-	 */
-	do_action( 'bp_example_screen_two' );
-
-	add_action( 'bp_template_title', 'bp_example_screen_two_title' );
-	add_action( 'bp_template_content', 'bp_example_screen_two_content' );
-
-	/* Finally load the plugin template file. */
-	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
-}
-
-	function bp_example_screen_two_title() {
-		_e( 'Screen Two', 'bp-example' );
-	}
-
-	function bp_example_screen_two_content() {
-		global $bp; ?>
-
-		<h4><?php _e( 'Welcome to Screen Two', 'bp-example' ) ?></h4>
-
-		<?php
-			$accept_link = '<a href="' . wp_nonce_url( $bp->loggedin_user->domain . $bp->example->slug . '/screen-two/accept', 'bp_example_accept_terms' ) . '">' . __( 'Accept', 'bp-example' ) . '</a>';
-			$reject_link = '<a href="' . wp_nonce_url( $bp->loggedin_user->domain . $bp->example->slug . '/screen-two/reject', 'bp_example_reject_terms' ) . '">' . __( 'Reject', 'bp-example' ) . '</a>';
-		?>
-
-		<p><?php printf( __( 'You must %s or %s the terms of use policy.', 'bp-example' ), $accept_link, $reject_link ) ?></p>
 	<?php
 	}
 
