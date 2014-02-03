@@ -274,7 +274,7 @@ class BP_PRESENT_Component extends BP_Component {
 		$main_nav = array(
 			'name' 		      => __( WP_Present_Core::TAXONOMY_NAME, 'bp-example' ),
 			'slug' 		      => bp_get_example_slug(),
-			'position' 	      => 80,
+			'position' 	      => 42,
 			'screen_function'     => 'bp_example_screen_one',
 			'default_subnav_slug' => 'screen-one'
 		);
@@ -391,6 +391,29 @@ add_action( 'bp_loaded', 'bp_example_load_core_component' );
 
 
 /********** CUSTOM /**********/
+//Force registration of user blogs
+function bp_example_force_user_blogs( $user_login, $user ) {
+	$user_blogs = get_blogs_of_user( $user->ID );
+	$username_blog = false;
+	if( is_array( $user_blogs ) && count( $user_blogs ) ) {
+		foreach( $user_blogs as $key => $user_blog ) {
+			if( strtolower( $user_login ) == strtolower( $user_blog->blogname ) ) {
+				$username_blog == $user_blogs[$key];
+			}
+		}
+	}
+	if( ! is_object( $username_blog ) || is_wp_error( $username_blog ) ) {
+		$domain  = DOMAIN_CURRENT_SITE; // localhost
+		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
+		$title   = esc_html( $user->data->display_name . ' Presents' );
+		$user_id = $user->ID;
+		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
+	}
+
+}
+add_action( 'wp_login', 'bp_example_force_user_blogs', 10, 2 );
+
+
 // Restore comments to THIS BuddyPress Component
 function filter_comments_open( $open, $post_id ){
 	global $post;

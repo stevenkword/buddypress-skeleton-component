@@ -52,6 +52,7 @@
 					echo '</ul>';
 				} else {
 					// no posts found
+					echo '<p>One is the lonlinest number. Let us help you get stared!</p>';
 				}
 				/* Restore original Post Data */
 				wp_reset_postdata();
