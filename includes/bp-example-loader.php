@@ -404,15 +404,16 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		}
 	}
 
-error_log(var_export($username_blog));
-die('asdf');
-
 	if( ! is_object( $username_blog ) || is_wp_error( $username_blog ) ) {
 		$domain  = DOMAIN_CURRENT_SITE; // localhost
 		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
+
+		error_log(var_export($new_blog_id));
+		die('asdf');
+
 	}
 }
 add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
