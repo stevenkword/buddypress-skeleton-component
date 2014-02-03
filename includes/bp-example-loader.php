@@ -393,7 +393,7 @@ add_action( 'bp_loaded', 'bp_example_load_core_component' );
 /********** CUSTOM /**********/
 //Force registration of user blogs
 function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
-//	oomph_error_log('wtf');
+
 	$user_blogs = get_blogs_of_user( $user->ID );
 	$username_blog = false;
 	if( is_array( $user_blogs ) && count( $user_blogs ) ) {
@@ -403,6 +403,10 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 			}
 		}
 	}
+
+error_log(var_export($username_blog));
+die('asdf');
+
 	if( ! is_object( $username_blog ) || is_wp_error( $username_blog ) ) {
 		$domain  = DOMAIN_CURRENT_SITE; // localhost
 		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
@@ -417,14 +421,7 @@ add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
 
 function test( $user, $user_data ) {
-
-error_log('asdf');
-die('asdf');
-//oomph_error_log('[user]', $user);
-//oomph_error_log('[userdata]', $user_data);
-
-	//bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' );
-
+	bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' );
 }
 add_action( 'jetpack_sso_handle_login', 'test', 10, 2 );
 
