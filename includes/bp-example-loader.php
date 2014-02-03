@@ -418,6 +418,8 @@ add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
 function test( $user, $user_data ) {
 
+error_log('asdf');
+die('asdf');
 //oomph_error_log('[user]', $user);
 //oomph_error_log('[userdata]', $user_data);
 
