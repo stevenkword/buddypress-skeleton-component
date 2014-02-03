@@ -415,6 +415,17 @@ add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
 add_action( 'profile_update', 'bp_example_force_user_blogs', 99, 2  );
 add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
+
+function test( $user, $user_data ) {
+
+oomph_error_log('[user]', $user);
+oomph_error_log('[userdata]', $user_data);
+
+	//bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' );
+
+}
+add_action( 'jetpack_sso_handle_login', 'test', 10, 2 );
+
 // Restore comments to THIS BuddyPress Component
 function filter_comments_open( $open, $post_id ){
 	global $post;
