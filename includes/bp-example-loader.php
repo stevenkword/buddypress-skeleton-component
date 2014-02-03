@@ -410,6 +410,7 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
+		flush_rewrite_rules( );
 	}
 }
 add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
