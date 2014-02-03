@@ -1,5 +1,8 @@
 <?php get_header() ?>
 	<div id="content">
+
+		<div id="section-title"><?php bp_displayed_user_fullname(); ?>'s Presentations</div>
+
 		<div class="padder">
 
 			<div id="item-header">
