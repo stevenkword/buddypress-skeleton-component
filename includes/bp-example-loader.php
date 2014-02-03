@@ -423,7 +423,7 @@ add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
 
 function test( $user, $user_data ) {
-	error_log(var_export($user_data));
+	error_log(var_export($user));
 	bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' );
 }
 add_action( 'jetpack_sso_handle_login', 'test', 10, 2 );
