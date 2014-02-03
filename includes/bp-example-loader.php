@@ -393,10 +393,6 @@ add_action( 'bp_loaded', 'bp_example_load_core_component' );
 /********** CUSTOM /**********/
 //Force registration of user blogs
 function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
-
-	$user  = get_user( $user_id );
-	$user_login = $user->data->name;
-
 	$user_blogs = get_blogs_of_user( $user->ID );
 	$username_blog = false;
 	if( is_array( $user_blogs ) && count( $user_blogs ) ) {
@@ -406,6 +402,7 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 			}
 		}
 	}
+
 	if( ! is_object( $username_blog ) || is_wp_error( $username_blog ) ) {
 		$domain  = DOMAIN_CURRENT_SITE; // localhost
 		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
@@ -415,8 +412,9 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 	}
 
 }
-add_action( 'user_register', 'bp_example_force_user_blogs', 99 );
-add_action( 'profile_update', 'bp_example_force_user_blogs', 99, 2 );
+add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
+add_action( 'profile_update', 'bp_example_force_user_blogs', 99, 2  );
+add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
 // Restore comments to THIS BuddyPress Component
 function filter_comments_open( $open, $post_id ){
