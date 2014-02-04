@@ -274,7 +274,7 @@ class BP_PRESENT_Component extends BP_Component {
 		$main_nav = array(
 			'name' 		      => __( WP_Present_Core::TAXONOMY_NAME, 'bp-example' ),
 			'slug' 		      => bp_get_example_slug(),
-			'position' 	      => 42,
+			'position' 	      => 10,
 			'screen_function'     => 'bp_example_screen_one',
 			'default_subnav_slug' => 'screen-one'
 		);
@@ -391,7 +391,41 @@ add_action( 'bp_loaded', 'bp_example_load_core_component' );
 
 
 /********** CUSTOM /**********/
-// Force registration of user blogs
+
+/**
+ * Force registration of user blogs
+ *
+ */
+function bp_example_action_user_register( $user_id ) {
+	oomph_error_log( 'bp_example_action_user_register' );
+	$user = get_user_by( 'id', $user_id );
+	bp_example_force_user_blogs( $user->data->user_login, $user );
+}
+add_action( 'user_register',  'bp_example_action_user_register', 99  );
+
+function bp_example_action_profile_update( $user_id, $old_user_data ) {
+	oomph_error_log( 'bp_example_action_user_register' );
+	$user = get_user_by( 'id', $user_id );
+	bp_example_force_user_blogs( $user->data->user_login, $user, $old_userdata );
+}
+add_action( 'profile_update', 'bp_example_action_profile_update', 99, 2  );
+
+function bp_example_action_wp_login( $user_login, $user ) {
+	oomph_error_log( 'bp_example_action_user_register' );
+	bp_example_force_user_blogs( $user_login, $user );
+}
+add_action( 'wp_login',       'bp_example_action_wp_login', 99, 2  );
+
+function bp_example_action_jetpack_sso_handle_login( $user, $user_data ) {
+	oomph_error_log( 'bp_example_action_user_register' );
+	bp_example_force_user_blogs( $user->data->user_login, $user );
+}
+add_action( 'jetpack_sso_handle_login', 'bp_example_action_jetpack_sso_handle_login', 99, 2 );
+
+/**
+ * Force registration of user blogs
+ *
+ */
 function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 
 	$user_blogs = get_blogs_of_user( $user->ID );
@@ -409,19 +443,20 @@ function bp_example_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
+
+
+oomph_error_log( 'domain', $domain );
+oomph_error_log( 'path', $path );
+oomph_error_log( 'title', $title );
+oomph_error_log( 'user_id', $user_id );
+
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
 		flush_rewrite_rules( );
 	}
 }
-add_action( 'user_register',  'bp_example_force_user_blogs', 99  );
-add_action( 'profile_update', 'bp_example_force_user_blogs', 99, 2  );
-add_action( 'wp_login',       'bp_example_force_user_blogs', 99, 2  );
 
 
-function test( $user, $user_data ) {
-	bp_example_force_user_blogs( $user->data->user_login, $user, $old_userdata = '' );
-}
-add_action( 'jetpack_sso_handle_login', 'test', 10, 2 );
+
 
 // Restore comments to THIS BuddyPress Component
 function filter_comments_open( $open, $post_id ){
