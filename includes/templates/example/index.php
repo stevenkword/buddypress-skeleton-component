@@ -19,7 +19,7 @@
 
 		<form action="" method="post" id="example-directory-form" class="dir-form">
 
-			<h3><?php _e( 'High Fives Directory', 'bp-example' ); ?></h3>
+			<h3><?php _e( 'High Fives Directory', 'bp-present' ); ?></h3>
 
 			<?php do_action( 'bp_before_directory_example_content' ); ?>
 
@@ -27,9 +27,9 @@
 
 			<div class="item-list-tabs no-ajax" role="navigation">
 				<ul>
-					<li class="selected" id="groups-all"><a href="<?php echo trailingslashit( bp_get_root_domain() . '/' . bp_get_example_root_slug() ); ?>"><?php printf( __( 'All High Fives <span>%s</span>', 'buddypress' ), bp_example_get_total_high_five_count() ); ?></a></li>
+					<li class="selected" id="groups-all"><a href="<?php echo trailingslashit( bp_get_root_domain() . '/' . bp_get_example_root_slug() ); ?>"><?php printf( __( 'All High Fives <span>%s</span>', 'buddypress' ), bp_present_get_total_high_five_count() ); ?></a></li>
 
-					<?php do_action( 'bp_example_directory_example_filter' ); ?>
+					<?php do_action( 'bp_present_directory_example_filter' ); ?>
 
 				</ul>
 			</div><!-- .item-list-tabs -->

@@ -47,7 +47,24 @@
 								<h3>
 									<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 								</h3>
-								<p>Last Update 7 Mins ago</p>
+
+		<header class="entry-header">
+
+			<div class="entry-byline">
+				<time <?php hybrid_attr( 'entry-published' ); ?>><?php echo get_the_date(); ?></time>
+				<?php comments_popup_link( number_format_i18n( 0 ), number_format_i18n( 1 ), '%', 'comments-link', '' ); ?>
+				<?php edit_post_link(); ?>
+			</div><!-- .entry-byline -->
+
+		</header><!-- .entry-header -->
+
+		<div <?php hybrid_attr( 'entry-summary' ); ?>>
+			<?php the_excerpt(); ?>
+		</div><!-- .entry-summary -->
+
+
+
+
 							</div>
 						</li>
 						<?php

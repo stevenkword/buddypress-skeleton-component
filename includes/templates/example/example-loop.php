@@ -10,19 +10,19 @@
 
 <?php do_action( 'bp_before_example_loop' ); ?>
 
-<?php if ( bp_example_has_items( bp_ajax_querystring( 'example' ) ) ) : ?>
+<?php if ( bp_present_has_items( bp_ajax_querystring( 'example' ) ) ) : ?>
 <?php // global $items_template; var_dump( $items_template ) ?>
 	<div id="pag-top" class="pagination">
 
 		<div class="pag-count" id="example-dir-count-top">
 
-			<?php bp_example_pagination_count(); ?>
+			<?php bp_present_pagination_count(); ?>
 
 		</div>
 
 		<div class="pagination-links" id="example-dir-pag-top">
 
-			<?php bp_example_item_pagination(); ?>
+			<?php bp_present_item_pagination(); ?>
 
 		</div>
 
@@ -32,15 +32,15 @@
 
 	<ul id="example-list" class="item-list" role="main">
 
-	<?php while ( bp_example_has_items() ) : bp_example_the_item(); ?>
+	<?php while ( bp_present_has_items() ) : bp_present_the_item(); ?>
 
 		<li>
 			<div class="item-avatar">
-				<?php bp_example_high_fiver_avatar( 'type=thumb&width=50&height=50' ); ?>
+				<?php bp_present_high_fiver_avatar( 'type=thumb&width=50&height=50' ); ?>
 			</div>
 
 			<div class="item">
-				<div class="item-title"><?php bp_example_high_five_title() ?></div>
+				<div class="item-title"><?php bp_present_high_five_title() ?></div>
 
 				<?php do_action( 'bp_directory_example_item' ); ?>
 
@@ -59,13 +59,13 @@
 
 		<div class="pag-count" id="example-dir-count-bottom">
 
-			<?php bp_example_pagination_count(); ?>
+			<?php bp_present_pagination_count(); ?>
 
 		</div>
 
 		<div class="pagination-links" id="example-dir-pag-bottom">
 
-			<?php bp_example_item_pagination(); ?>
+			<?php bp_present_item_pagination(); ?>
 
 		</div>
 

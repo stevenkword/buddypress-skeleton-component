@@ -61,22 +61,22 @@ define( 'BP_PRESENT_PLUGIN_DIR', dirname( __FILE__ ) );
 define ( 'BP_PRESENT_DB_VERSION', '1' );
 
 /* Only load the component if BuddyPress is loaded and initialized. */
-function bp_example_init() {
+function bp_present_init() {
 	// Because our loader file uses BP_Component, it requires BP 1.5 or greater.
 	if ( version_compare( BP_VERSION, '1.3', '>' ) )
-		require( BP_PRESENT_PLUGIN_DIR . '/includes/bp-example-loader.php' );
+		require( BP_PRESENT_PLUGIN_DIR . '/includes/bp-present-loader.php' );
 }
-add_action( 'bp_include', 'bp_example_init' );
+add_action( 'bp_include', 'bp_present_init' );
 
 /* Put setup procedures to be run when the plugin is activated in the following function */
-function bp_example_activate() {
+function bp_present_activate() {
 
 }
-register_activation_hook( __FILE__, 'bp_example_activate' );
+register_activation_hook( __FILE__, 'bp_present_activate' );
 
 /* On deacativation, clean up anything your component has added. */
-function bp_example_deactivate() {
+function bp_present_deactivate() {
 	/* You might want to delete any options or tables that your component created. */
 }
-register_deactivation_hook( __FILE__, 'bp_example_deactivate' );
+register_deactivation_hook( __FILE__, 'bp_present_deactivate' );
 ?>
