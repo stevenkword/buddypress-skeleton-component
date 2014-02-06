@@ -428,7 +428,7 @@ add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_lo
 function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 
 	// Superadmins don't need blogs, they can use their personal accounts
-	if( is_super_admin() ) {
+	if( is_super_admin( $user->ID) ) {
 		return;
 	}
 
