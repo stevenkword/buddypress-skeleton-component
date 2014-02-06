@@ -458,11 +458,8 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
 		flush_rewrite_rules( );
 	}
+
 }
-
-
-
-
 // Restore comments to THIS BuddyPress Component
 function filter_comments_open( $open, $post_id ){
 	global $post;
@@ -472,4 +469,29 @@ function filter_comments_open( $open, $post_id ){
 	return $open;
 }
 add_filter( 'comments_open', 'filter_comments_open', 99, 2 );
-?>
+
+/**
+ * Send users to their profile page when the login but ONLY if they are logging in from the root blog.
+ * @return [type] [description]
+ */
+function filter_function_name( $redirect_to, $request, $user ){
+
+
+	// Redirect superadmins to the root blog superadmin
+	//echo '<pre>';
+	//var_dump($request);
+	//echo '</pre>';
+
+	if( is_super_admin( $user->ID ) ) {
+		$redirect_to = network_site_url('/wp-admin/');
+	}
+
+	else{
+		$redirect_to = network_site_url('/'.$user->data->user_login.'/');
+	}
+
+	//else
+	return $redirect_to;
+
+}
+add_filter( 'login_redirect', 'filter_function_name', 10, 3 );
