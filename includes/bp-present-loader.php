@@ -489,7 +489,7 @@ function filter_function_name( $redirect_to, $request, $user ){
 	else{
 		$redirect_to = network_site_url('/'.$user->data->user_login.'/');
 	}
-
+//die('asdf');
 	//else
 	return $redirect_to;
 
