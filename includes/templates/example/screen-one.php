@@ -1,6 +1,6 @@
 <?php get_header() ?>
 	<div id="content">
-
+		<div style="float:right; display: inline-block; width:auto;"><button>New</button></div>
 		<div id="section-title"><?php bp_displayed_user_fullname(); ?>'s Presentations</div>
 
 		<div class="padder">
@@ -36,40 +36,17 @@
 
 				// The Loop
 				if ( $the_query->have_posts() ) {
-					echo '<ul>';
+
 					while ( $the_query->have_posts() ) {
 
 						$the_query->the_post();
 						?>
-						<li>
-							<div>
-								<!-- Display the Title as a link to the Post's permalink. -->
-								<h3>
-									<a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-								</h3>
 
-		<header class="entry-header">
+						<?php hybrid_get_content_template(); // Loads the content/*.php template. ?>
 
-			<div class="entry-byline">
-				<time <?php hybrid_attr( 'entry-published' ); ?>><?php echo get_the_date(); ?></time>
-				<?php comments_popup_link( number_format_i18n( 0 ), number_format_i18n( 1 ), '%', 'comments-link', '' ); ?>
-				<?php edit_post_link(); ?>
-			</div><!-- .entry-byline -->
-
-		</header><!-- .entry-header -->
-
-		<div <?php hybrid_attr( 'entry-summary' ); ?>>
-			<?php the_excerpt(); ?>
-		</div><!-- .entry-summary -->
-
-
-
-
-							</div>
-						</li>
 						<?php
 					}
-					echo '</ul>';
+
 				} else {
 					// no posts found
 					echo '<p>One is the lonlinest number. Let us help you get stared!</p>';
