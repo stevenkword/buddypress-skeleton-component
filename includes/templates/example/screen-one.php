@@ -48,14 +48,8 @@
 							echo '<div class="wpp-row alt">';
 						}
 
-
 						// The content
-						if ( function_exists( 'hybrid_get_content_template' ) ) {
-							hybrid_get_content_template();
-						} else {
-							the_title();
-							the_content();
-						}
+						get_template_part( 'content', 'presentations-list' );
 
 						echo '</div>';
 						$i++;
