@@ -1,15 +1,33 @@
 <?php get_header() ?>
 	<div id="content">
-		<div id="section-buttons "style="float:right; display: inline-block; width:auto;">
-			<a id="wpp-button-new" href="#"><button><span class="wpp-button-icon">New</span></button></a>
+		<div id="section-buttons">
+
+			<?php
+			if ( function_exists( 'bp_follow_add_follow_button' ) ) :
+				if ( bp_loggedin_user_id() && bp_loggedin_user_id() != bp_displayed_user_id() ) {
+					echo '<button>';
+					bp_follow_add_follow_button( array(
+						'leader_id'   => bp_displayed_user_id(),
+						'follower_id' => bp_loggedin_user_id()
+					) );
+					echo '</button>';
+				} else {
+					echo '<button><a id="wpp-button-new" href="#"><span class="wpp-button-icon">New Presentation</span></a></button>';
+				}
+			endif;
+			?>
+
+
 		</div>
 		<div id="section-title"><?php bp_displayed_user_fullname(); ?>'s Presentations</div>
 
 		<div class="padder">
 
+			<!--
 			<div id="item-header">
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>
 			</div>
+		-->
 
 			<div id="item-nav">
 				<div class="item-list-tabs no-ajax" id="object-nav">
