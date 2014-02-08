@@ -1,6 +1,8 @@
 <?php get_header() ?>
 	<div id="content">
-		<div style="float:right; display: inline-block; width:auto;"><button>New</button></div>
+		<div id="section-buttons "style="float:right; display: inline-block; width:auto;">
+			<a id="wpp-button-new" href="#"><button><span class="wpp-icon">New</span></button></a>
+		</div>
 		<div id="section-title"><?php bp_displayed_user_fullname(); ?>'s Presentations</div>
 
 		<div class="padder">
@@ -38,13 +40,16 @@
 				if ( $the_query->have_posts() ) {
 
 					while ( $the_query->have_posts() ) {
-
 						$the_query->the_post();
-						?>
-
-						<?php hybrid_get_content_template(); // Loads the content/*.php template. ?>
-
-						<?php
+						
+						// The content
+						if ( function_exists( 'hybrid_get_content_template' ) ) {
+							hybrid_get_content_template();
+						} else {
+							the_title();
+							the_content();
+						}
+						
 					}
 
 				} else {
