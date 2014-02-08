@@ -1,7 +1,7 @@
 <?php get_header() ?>
 	<div id="content">
 		<div id="section-buttons "style="float:right; display: inline-block; width:auto;">
-			<a id="wpp-button-new" href="#"><button><span class="wpp-icon">New</span></button></a>
+			<a id="wpp-button-new" href="#"><button><span class="wpp-button-icon">New</span></button></a>
 		</div>
 		<div id="section-title"><?php bp_displayed_user_fullname(); ?>'s Presentations</div>
 
