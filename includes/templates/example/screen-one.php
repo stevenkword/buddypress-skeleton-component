@@ -38,10 +38,17 @@
 
 				// The Loop
 				if ( $the_query->have_posts() ) {
-
+					$i = 0;
 					while ( $the_query->have_posts() ) {
 						$the_query->the_post();
-						
+
+						if( 0 == $i % 2 ) {
+							echo '<div class="wpp-row">';
+						} else {
+							echo '<div class="wpp-row alt">';
+						}
+
+
 						// The content
 						if ( function_exists( 'hybrid_get_content_template' ) ) {
 							hybrid_get_content_template();
@@ -49,9 +56,11 @@
 							the_title();
 							the_content();
 						}
-						
-					}
 
+						echo '</div>';
+						$i++;
+					}
+					unset( $i );
 				} else {
 					// no posts found
 					echo '<p>One is the lonlinest number. Let us help you get stared!</p>';
