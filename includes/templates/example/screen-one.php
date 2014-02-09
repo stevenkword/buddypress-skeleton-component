@@ -12,7 +12,10 @@
 					) );
 					echo '</button>';
 				} else {
-					echo '<button><a id="wpp-button-new" href="#"><span class="wpp-button-icon">New Presentation</span></a></button>';
+
+					$link = add_query_arg( 'post_type', 'presentations', home_url( '/wp-admin/post-new.php' ) );
+
+					echo '<button><a id="wpp-button-new" href="'. esc_url( $link ) .'""><span class="wpp-button-icon">New Presentation</span></a></button>';
 				}
 			endif;
 			?>
