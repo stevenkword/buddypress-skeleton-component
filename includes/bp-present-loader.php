@@ -396,27 +396,27 @@ add_action( 'bp_loaded', 'bp_present_load_core_component' );
  *
  */
 function bp_present_action_user_register( $user_id ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	$user = get_user_by( 'id', $user_id );
 	bp_present_force_user_blogs( $user->data->user_login, $user );
 }
 add_action( 'user_register',  'bp_present_action_user_register', 99  );
 
 function bp_present_action_profile_update( $user_id, $old_user_data ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	$user = get_user_by( 'id', $user_id );
 	bp_present_force_user_blogs( $user->data->user_login, $user, $old_userdata );
 }
 add_action( 'profile_update', 'bp_present_action_profile_update', 99, 2  );
 
 function bp_present_action_wp_login( $user_login, $user ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	bp_present_force_user_blogs( $user_login, $user );
 }
 add_action( 'wp_login',       'bp_present_action_wp_login', 99, 2  );
 
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	bp_present_force_user_blogs( $user->data->user_login, $user );
 }
 add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
@@ -433,6 +433,12 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		return;
 	}
 
+error_log( 'START', '' );
+error_log( 'user_login', $user_login );
+error_log( 'user', var_export( $user ) );
+
+
+	// Does the current user already have a blog?
 	$user_blogs = get_blogs_of_user( $user->ID );
 	$username_blog = false;
 	if( is_array( $user_blogs ) && count( $user_blogs ) ) {
@@ -443,17 +449,18 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		}
 	}
 
+	// If the current user doesn't have a blog, let's cram one down their throat
 	if( ! is_object( $username_blog ) || is_wp_error( $username_blog ) ) {
 		$domain  = DOMAIN_CURRENT_SITE; // localhost
 		$path    = PATH_CURRENT_SITE . $user_login . '/'; // /wppcom/username/
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
 
-
-		//error_log( 'domain', $domain );
-		//error_log( 'path', $path );
-		//error_log( 'title', $title );
-		//error_log( 'user_id', $user_id );
+		error_log( 'FORCING BLOG CREATION', '' );
+		error_log( 'domain', $domain );
+		error_log( 'path', $path );
+		error_log( 'title', $title );
+		error_log( 'user_id', $user_id );
 
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
 		flush_rewrite_rules( );
