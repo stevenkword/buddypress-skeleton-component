@@ -447,7 +447,7 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 	if( is_array( $user_blogs ) && count( $user_blogs ) ) {
 		foreach( $user_blogs as $key => $user_blog ) {
 			if( strtolower( $user_login ) == strtolower( $user_blog->blogname ) ) {
-				$username_blog == $user_blogs[$key];
+				$username_blog = $user_blogs[$key];
 			}
 		}
 	}
