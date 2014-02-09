@@ -417,7 +417,7 @@ add_action( 'wp_login',       'bp_present_action_wp_login', 99, 2  );
 
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
 	error_log( 'bp_present_action_user_register' );
-	bp_present_force_user_blogs( $user->data->user_login, $user );
+	bp_present_force_user_blogs( $user_data->user_login, $user );
 }
 add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
 
@@ -436,6 +436,14 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 error_log( 'START', '' );
 error_log( 'user_login', $user_login );
 error_log( 'user', var_export( $user ) );
+
+	// Try to set the user login from the user object
+	if( ! $user_login || empty( $user_login ) ) {
+		if( is_object( $user ) && ! wp_is_error( $user ) && isset( $user->user_login ) ) {
+			error_log( 'Using USER object' );
+			$user_login = $user->user_login;
+		}
+	}
 
 
 	// Does the current user already have a blog?
