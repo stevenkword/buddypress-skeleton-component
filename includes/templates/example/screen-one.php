@@ -11,7 +11,7 @@
 						'follower_id' => bp_loggedin_user_id()
 					) );
 					echo '</button>';
-				} else {
+				} elseif( bp_loggedin_user_id() && bp_loggedin_user_id() == bp_displayed_user_id() ) {
 
 					$link = add_query_arg( 'post_type', 'presentations', home_url( '/wp-admin/post-new.php' ) );
 
