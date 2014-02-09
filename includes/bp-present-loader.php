@@ -435,7 +435,7 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 
 	// Try to set the user login from the user object
 	if( ! $user_login || empty( $user_login ) ) {
-		if( is_object( $user ) && ! wp_is_error( $user ) && isset( $user->user_login ) ) {
+		if( is_object( $user ) && ! is_wp_error( $user ) && isset( $user->user_login ) ) {
 			error_log( 'Using USER object' );
 			$user_login = $user->user_login;
 		}
