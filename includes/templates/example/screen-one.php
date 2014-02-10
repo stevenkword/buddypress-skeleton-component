@@ -78,7 +78,11 @@
 					unset( $i );
 				} else {
 					// no posts found
-					echo '<p>One is the lonlinest number. Let us help you get stared!</p>';
+					?>
+					<br/>
+					<h3>It's looks like you're new here.</h3>
+					<p>Here are some links to help you get started:</p>
+					<?php
 				}
 				/* Restore original Post Data */
 				wp_reset_postdata();
