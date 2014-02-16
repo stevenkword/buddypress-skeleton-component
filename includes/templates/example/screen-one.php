@@ -55,7 +55,7 @@
 				// The Query
 				$the_query = new WP_Query( array(
 					'post_type' => 'presentations',
-					'author'    => bp_displayed_user_id(),
+					/*'author'    => bp_displayed_user_id(),*/
 				 ) );
 
 				// The Loop
