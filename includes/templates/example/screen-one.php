@@ -55,6 +55,7 @@
 				// The Query
 				$the_query = new WP_Query( array(
 					'post_type' => 'presentations',
+					'author'    => bp_displayed_user_id(),
 				 ) );
 
 				// The Loop
@@ -76,7 +77,7 @@
 						$i++;
 					}
 					unset( $i );
-				} elseif( is_user_logged_in() ) {
+				} elseif ( bp_loggedin_user_id() && bp_loggedin_user_id() == bp_displayed_user_id() ) {
 					// no posts found
 					$link = add_query_arg( 'post_type', 'presentations', home_url( '/wp-admin/post-new.php' ) );
 					?>
