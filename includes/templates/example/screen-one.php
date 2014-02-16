@@ -76,14 +76,25 @@
 						$i++;
 					}
 					unset( $i );
-				} else {
+				} elseif( is_user_logged_in() ) {
 					// no posts found
+					$link = add_query_arg( 'post_type', 'presentations', home_url( '/wp-admin/post-new.php' ) );
 					?>
 					<br/>
 					<h3>It's looks like you're new here.</h3>
 					<p>Here are some links to help you get started:</p>
+					<ul>
+						<li><a href="<?php echo esc_url( $link ); ?>">Create a new presentation</a></li>
+						<li><a href="<?php echo esc_url( network_home_url( 'presenters' ) ); ?>">Explore the presenters directory</a></li>
+					</ul>
+					<?php
+				} else {
+					?>
+					<br/>
+					<h3>It's looks like <?php bp_displayed_user_fullname(); ?> is new here.</h3>
 					<?php
 				}
+
 				/* Restore original Post Data */
 				wp_reset_postdata();
 				?>
