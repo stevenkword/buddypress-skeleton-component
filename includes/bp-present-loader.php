@@ -473,9 +473,10 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 			remove_user_from_blog( $user_id, BLOG_ID_CURRENT_SITE, false );
 		}
 
-		// Clean house
-		flush_rewrite_rules( );
 	}
+
+	// Clean house
+	flush_rewrite_rules( );
 
 }
 // Restore comments to THIS BuddyPress Component
