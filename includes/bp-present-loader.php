@@ -469,13 +469,13 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		error_log( 'user_id', $user_id );
 
 		// Give this user a new blog
-		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
+		if( '/' != $path && '' != $path )
+			$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
 
 		// Remove this user from the network home
 		if( defined( 'BLOG_ID_CURRENT_SITE' ) ) {
 			remove_user_from_blog( $user_id, BLOG_ID_CURRENT_SITE, false );
 		}
-
 	}
 
 	// Clean house
