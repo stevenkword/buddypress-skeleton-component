@@ -384,9 +384,9 @@ class BP_PRESENT_Component extends BP_Component {
 function bp_present_load_core_component() {
 	global $bp;
 
-	//$bp->example = new BP_PRESENT_Component;
+	$bp->example = new BP_PRESENT_Component;
 }
-add_action( 'bp_loaded', 'bp_present_load_core_component' );
+//add_action( 'bp_loaded', 'bp_present_load_core_component' );
 
 
 /********** CUSTOM /**********/
