@@ -419,9 +419,10 @@ function bp_present_action_wp_login( $user_login, $user ) {
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
 	error_log( 'bp_present_action_jetpack_sso_handle_login' );
 	error_log( var_export( $user_data ) );
+	wp_die( defined( 'WPCC_NEW_USER_OVERRIDE' ) );
 	bp_present_force_user_blogs( $user_data->login, $user );
 }
-//add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
+add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
 
 /**
  * Force registration of user blogs
