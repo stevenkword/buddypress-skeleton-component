@@ -421,7 +421,7 @@ function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
 	error_log( var_export( $user_data ) );
 	bp_present_force_user_blogs( $user_data->login, $user );
 }
-add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
+//add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
 
 /**
  * Force registration of user blogs
