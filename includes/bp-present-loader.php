@@ -436,7 +436,8 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 	}
 	// If $user is STILL NOT a WP_User object
 	if( ! is_object( $user ) || is_wp_error( $user ) ) {
-		//wp_die( 'Could not resolve user login: ' . $user_login );
+		wp_die( 'Could not resolve user login: ' . $user_login );
+		flush_rewrite_rules();
 		return false;
 	}
 
