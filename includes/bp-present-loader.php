@@ -396,27 +396,27 @@ add_action( 'bp_loaded', 'bp_present_load_core_component' );
  *
  */
 function bp_present_action_user_register( $user_id ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	$user = get_user_by( 'id', $user_id );
 	bp_present_force_user_blogs( $user->data->user_login, $user );
 }
 add_action( 'user_register',  'bp_present_action_user_register', 99  );
 
-function bp_present_action_profile_update( $user_id, $old_user_data ) {
-	//error_log( 'bp_present_action_user_register' );
+function bp_present_action_profile_update( $user_id, $old_user_data = '' ) {
+	error_log( 'bp_present_action_user_register' );
 	$user = get_user_by( 'id', $user_id );
 	bp_present_force_user_blogs( $user->data->user_login, $user, $old_userdata );
 }
 add_action( 'profile_update', 'bp_present_action_profile_update', 99, 2  );
 
 function bp_present_action_wp_login( $user_login, $user ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	bp_present_force_user_blogs( $user_login, $user );
 }
 add_action( 'wp_login', 'bp_present_action_wp_login', 99, 2  );
 
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
-	//error_log( 'bp_present_action_user_register' );
+	error_log( 'bp_present_action_user_register' );
 	bp_present_force_user_blogs( $user_data->user_login, $user );
 }
 add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
@@ -427,18 +427,21 @@ add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_lo
  */
 function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 
-	// Superadmins don't need blogs, they can use their personal accounts
-	if( is_super_admin( $user->ID) ) {
-		flush_rewrite_rules();
-		return;
+	// If $user is not a WP_User object
+	if( ! is_object( $user ) || is_wp_error( $user ) && isset( $user->user_login ) ) {
+		// Try to get it from the $user_login
+		$user = get_user_by( 'login', $user_login );
+	}
+	// If $user is STILL NOT a WP_User object
+	if( ! is_object( $user ) || is_wp_error( $user ) ) {
+		wp_die( 'Could not resolve user login' . $user_login );
+		return false;
 	}
 
-	// Try to set the user login from the user object
-	if( ! $user_login || empty( $user_login ) ) {
-		if( is_object( $user ) && ! is_wp_error( $user ) && isset( $user->user_login ) ) {
-			//error_log( 'Using USER object' );
-			$user_login = $user->user_login;
-		}
+	// Superadmins don't need blogs, they can use their personal accounts
+	if( is_super_admin( $user->ID ) ) {
+		flush_rewrite_rules();
+		return;
 	}
 
 	// Does the current user already have a blog?
@@ -459,11 +462,11 @@ function bp_present_force_user_blogs( $user_login, $user, $old_userdata = '' ) {
 		$title   = esc_html( $user->data->display_name . ' Presents' );
 		$user_id = $user->ID;
 
-		//error_log( 'FORCING BLOG CREATION', '' );
-		//error_log( 'domain', $domain );
-		//error_log( 'path', $path );
-		//error_log( 'title', $title );
-		//error_log( 'user_id', $user_id );
+		error_log( 'FORCING BLOG CREATION', '' );
+		error_log( 'domain', $domain );
+		error_log( 'path', $path );
+		error_log( 'title', $title );
+		error_log( 'user_id', $user_id );
 
 		// Give this user a new blog
 		$new_blog_id = wpmu_create_blog( $domain, $path, $title, $user_id );
@@ -493,7 +496,7 @@ add_filter( 'comments_open', 'filter_comments_open', 99, 2 );
  * Send users to their profile page when the login but ONLY if they are logging in from the root blog.
  * @return [type] [description]
  */
-function filter_function_name( $redirect_to, $request, $user ){
+function filter_login_redirect( $redirect_to, $request, $user ){
 
 
 	// Redirect superadmins to the root blog superadmin
@@ -501,7 +504,7 @@ function filter_function_name( $redirect_to, $request, $user ){
 	//var_dump($request);
 	//echo '</pre>';
 
-	if( is_super_admin( $user->ID ) ) {
+	if( ! is_wp_error( $user ) && is_super_admin( $user->ID ) ) {
 		$redirect_to = network_site_url('/wp-admin/');
 	}
 
@@ -513,4 +516,4 @@ function filter_function_name( $redirect_to, $request, $user ){
 	return $redirect_to;
 
 }
-add_filter( 'login_redirect', 'filter_function_name', 10, 3 );
+add_filter( 'login_redirect', 'filter_login_redirect', 10, 3 );
