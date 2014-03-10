@@ -419,7 +419,7 @@ add_action( 'wp_login', 'bp_present_action_wp_login', 99, 2  );
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
 	error_log( 'bp_present_action_jetpack_sso_handle_login' );
 	error_log( var_export( $user_data ) );
-	bp_present_force_user_blogs( $user_data->user_login, $user );
+	bp_present_force_user_blogs( $user_data->login, $user );
 }
 add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
 
