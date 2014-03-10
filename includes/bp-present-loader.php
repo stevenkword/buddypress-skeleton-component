@@ -401,26 +401,25 @@ function bp_present_action_user_register( $user_id ) {
 	error_log( var_export( $user ) );
 	bp_present_force_user_blogs( $user->data->user_login, $user );
 }
-//add_action( 'user_register',  'bp_present_action_user_register', 99  );
+add_action( 'user_register',  'bp_present_action_user_register', 99  );
 
 function bp_present_action_profile_update( $user_id, $old_user_data = '' ) {
 	error_log( 'bp_present_action_profile_update' );
 	$user = get_user_by( 'id', $user_id );
 	bp_present_force_user_blogs( $user->data->user_login, $user, $old_userdata );
 }
-//add_action( 'profile_update', 'bp_present_action_profile_update', 99, 2  );
+add_action( 'profile_update', 'bp_present_action_profile_update', 99, 2  );
 
 function bp_present_action_wp_login( $user_login, $user ) {
 	error_log( 'bp_present_action_wp_login' );
 	bp_present_force_user_blogs( $user_login, $user );
 }
-//add_action( 'wp_login', 'bp_present_action_wp_login', 99, 2  );
+add_action( 'wp_login', 'bp_present_action_wp_login', 99, 2  );
 
 function bp_present_action_jetpack_sso_handle_login( $user, $user_data ) {
 	error_log( 'bp_present_action_jetpack_sso_handle_login' );
-	error_log( var_export( $user_data ) );
-	//wp_die( defined( 'WPCC_NEW_USER_OVERRIDE' ) );
-	//bp_present_force_user_blogs( $user_data->login, $user );
+	//error_log( var_export( $user_data ) );
+	bp_present_force_user_blogs( $user_data->login, $user );
 }
 add_action( 'jetpack_sso_handle_login', 'bp_present_action_jetpack_sso_handle_login', 99, 2 );
 
