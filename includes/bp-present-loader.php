@@ -386,7 +386,7 @@ function bp_present_load_core_component() {
 
 	$bp->example = new BP_PRESENT_Component;
 }
-add_action( 'bp_loaded', 'bp_present_load_core_component' );
+add_action( 'bp_init', 'bp_present_load_core_component' );
 
 
 /********** CUSTOM /**********/
