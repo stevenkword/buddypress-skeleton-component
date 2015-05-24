@@ -161,7 +161,7 @@ class BP_PRESENT_Component extends BP_Component {
 	 * @package BuddyPress_Skeleton_Component
 	 * @since 1.6
 	 */
-	function includes() {
+	function includes( $includes = array() ) {
 		// Files to include
 		$includes = array(
 			'includes/bp-present-actions.php',
