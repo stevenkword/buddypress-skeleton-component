@@ -268,7 +268,7 @@ class BP_PRESENT_Component extends BP_Component {
 	 *
 	 * @global obj $bp
 	 */
-	function setup_nav() {
+	function setup_nav( [array $main_nav = array()], [array $sub_nav = array()] ) {
 		// Add 'Example' to the main navigation
 		$main_nav = array(
 			'name' 		      => __( WP_Present_Core::TAXONOMY_NAME, 'bp-present' ),
