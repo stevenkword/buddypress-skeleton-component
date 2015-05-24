@@ -227,7 +227,7 @@ class BP_PRESENT_Component extends BP_Component {
 	 *
 	 * @global obj $bp BuddyPress's global object
 	 */
-	function setup_globals() {
+	function setup_globals( $args = array() ) {
 		global $bp;
 
 		// Defining the slug in this way makes it possible for site admins to override it
