@@ -7,6 +7,106 @@
  * @since 1.6
  */
 
+/* Custom Functions go HERE */
+
+/**
+ * [bpp_get_user_id_from_blog_id description]
+ * @return [type] [description]
+ */
+function bpp_get_user_id_from_blog_id() {
+	$user_from_email = get_user_by('email', get_blog_option( get_current_blog_id(), 'admin_email') );
+	return	$user_id = $user_from_email->ID;
+}
+
+/**
+ * Determine if the site we are looking at is the network site
+ *
+ * @return [type] [description]
+ */
+function bpp_is_root_blog() {
+	if( function_exists( 'bp_is_root_blog' ) && bp_is_root_blog() ) {
+		return true;
+	}
+	return ( network_site_url('/') == home_url('/') );
+}
+
+/**
+ * [bpp_is_profile description]
+ * @return [type] [description]
+ */
+function bpp_is_profile() {
+	global $bp, $blog_id;
+
+	// Never on the homepage
+	if( bpp_is_root_blog() && is_home() ) {
+		return false;
+	}
+
+	// Look for BuddyPress
+	if( isset( $bp->current_component ) && in_array( $bp->current_component, array( 'presentations', 'notifications', 'following', 'followers', 'profile', 'settings' ) ) ) {
+		return true;
+	}
+
+	return ( is_singular( 'presentations' ) || is_tax( 'presentation' )/* || is_home() || is_front_page()*/ || is_page( 'profile' ) );
+}
+
+/**
+ * [bpp_redirect_blog_uri_segment description]
+ * @param  [type] $url [description]
+ * @return [type]      [description]
+ */
+function bpp_redirect_blog_uri_segment($url) {
+	return str_replace("/blog", '', $url);
+}
+add_filter( 'the_permalink', 'bpp_redirect_blog_uri_segment' );
+
+/**
+ * [bpp_redirect_homepage description]
+ * @return [type] [description]
+ */
+function bpp_redirect_homepage() {
+	if( bpp_is_root_blog() ) { return; }
+	if( is_home() ) {
+		$user_id = bpp_get_user_id_from_blog_id();
+		$user = get_user_by('email', get_blog_option( get_current_blog_id(), 'admin_email') );
+		wp_redirect( network_home_url( '/presenters/' . $user->user_login . '/' ), 302 ); exit;
+	}
+}
+add_action( 'pre_get_posts', 'bpp_redirect_homepage' );
+
+/**
+ * [bpp_force_displayed_user description]
+ * @return [type] [description]
+ */
+function bpp_force_displayed_user( ) {
+	if( bpp_is_root_blog() ) { return; }
+
+	global $bp;
+
+	$bp->displayed_user->id = bpp_get_user_id_from_blog_id();
+	$bp->displayed_user->domain = bp_core_get_user_domain( $bp->displayed_user->id );
+	$bp->displayed_user->userdata = bp_core_get_core_userdata( $bp->displayed_user->id );
+	$bp->displayed_user->fullname = bp_core_get_user_displayname( $bp->displayed_user->id );
+}
+add_action( 'bp_setup_nav', 'bpp_force_displayed_user', 0 );
+
+function bpp_force_displayed_blog_template() {
+	if( is_admin() ) return;
+	if( ! bpp_is_root_blog() )	return;
+
+	global $blog_id;
+		$user_blogs = get_blogs_of_user( bp_displayed_user_id() );
+		$thing = array_shift( $user_blogs  );
+		if( $thing->userblog_id == 1 && ! empty( $user_blogs  ) ){
+			$thing = array_shift( $user_blogs  );
+		}
+		$blog_id = $thing->userblog_id;
+		switch_to_blog( $blog_id );
+}
+add_action( 'bp_init', 'bpp_force_displayed_blog_template', 99 );
+
+/* END Custom Functions */
+
 /**
  * bp_present_load_template_filter()
  *
