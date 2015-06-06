@@ -162,6 +162,12 @@ function bpp_action_parse_request( $query_vars ) {
 }
 add_action( 'parse_request', 'bpp_action_parse_request', 15 );
 
+function bpp_filter_author_link( $link, $author_id, $author_nicename ) {
+	// Replace the author urls with the BP profile urls
+	return ( function_exists( 'bp_core_get_user_domain' ) ) ? bp_core_get_user_domain( $author_id ) : $link;
+}
+//add_filter( 'author_link', 'bpp_filter_author_link', 10, 3 );
+
 /**
  * Return to the site home on logout
  * @return [type] [description]
