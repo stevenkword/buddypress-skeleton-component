@@ -148,6 +148,30 @@ function bpp_fromname( $email ) {
 }
 add_filter('wp_mail_from_name', 'bpp_fromname');
 
+
+/**
+ * Never hit the registration page
+ * @param  [type] $query_vars [description]
+ * @return [type]             [description]
+ */
+function bpp_action_parse_request( $query_vars ) {
+	if( 'register' == $query_vars->request || ( isset( $query_vars->query_vars['pagename'] ) && 'register' == $query_vars->query_vars['pagename'] ) ) {
+		wp_redirect( network_site_url('/wp-login.php?action=jetpack-sso'), 301 );
+		exit;
+	}
+}
+add_action( 'parse_request', 'bpp_action_parse_request', 15 );
+
+/**
+ * Return to the site home on logout
+ * @return [type] [description]
+ */
+function bpp_action_logout() {
+	wp_redirect( network_site_url() );
+	exit();
+}
+add_action( 'wp_logout' , 'bpp_action_logout' );
+
 /**
  * This is a little bit of a hack / band aid.
  *
