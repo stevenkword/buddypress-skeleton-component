@@ -134,6 +134,20 @@ function bpp_admin_to_editor( $blog_id, $user_id ) {
 add_action( 'wpmu_new_blog', 'bpp_admin_to_editor', 10, 2 );
 
 
+function bpp_fromemail( $email ) {
+	return 'noreply@wppresent.com';
+	$wpfrom = get_option('admin_email');
+	return $wpfrom;
+}
+ add_filter('wp_mail_from', 'bpp_fromemail');
+
+function bpp_fromname( $email ) {
+	return 'WP Present';
+	$wpfrom = get_option('blogname');
+	return $wpfrom;
+}
+add_filter('wp_mail_from_name', 'bpp_fromname');
+
 /**
  * This is a little bit of a hack / band aid.
  *
