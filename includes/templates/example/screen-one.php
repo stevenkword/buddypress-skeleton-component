@@ -1,3 +1,7 @@
+<?php
+get_template_part( 'buddypress', 'presentations' );
+break;
+?>
 <?php get_header() ?>
 	<div id="content">
 		<div id="section-buttons">
@@ -47,9 +51,9 @@
 						<?php //bp_get_options_nav() ?>
 					</ul>
 				</div>
-				<!---
+				<!--
 				<header class="entry-header">
-					<h2 <?php hybrid_attr( 'entry-title' ); ?>><?php bp_displayed_user_fullname(); ?>'s' Presentations</h2>
+					<h2 <?php //hybrid_attr( 'entry-title' ); ?>><?php bp_displayed_user_fullname(); ?>'s' Presentations</h2>
 				</header><!-- .entry-header -->
 				<?php
 				// The Query
