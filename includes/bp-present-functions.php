@@ -134,7 +134,19 @@ function bpp_admin_to_editor( $blog_id, $user_id ) {
 add_action( 'wpmu_new_blog', 'bpp_admin_to_editor', 10, 2 );
 
 
-
+/**
+ * This is a little bit of a hack / band aid.
+ *
+ * @todo think of something better
+ *
+ * @return [type] [description]
+ */
+function bpp_404_flush() {
+	if( is_404() ) {
+		flush_rewrite_rules();
+	}
+}
+add_action( 'wp', 'bpp_404_flush' );
 
 /* END Custom Functions */
 
