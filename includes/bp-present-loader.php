@@ -1,5 +1,8 @@
 <?php
 
+require_once( BP_PRESENT_PLUGIN_DIR . '/includes/class-admin-menu.php' );
+require_once( BP_PRESENT_PLUGIN_DIR . '/includes/class-admin-bar.php' );
+
 // Exit if accessed directly
 // It's a good idea to include this in each of your plugin files, for increased security on
 // improperly configured servers

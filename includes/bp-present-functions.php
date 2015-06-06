@@ -106,6 +106,8 @@ function bpp_force_displayed_blog_template() {
 add_action( 'bp_init', 'bpp_force_displayed_blog_template', 99 );
 
 /**
+ * Allow editors to modify the theme customizer
+ *
  * [aperture_add_theme_caps description]
  * @return [type] [description]
  */
