@@ -105,6 +105,37 @@ function bpp_force_displayed_blog_template() {
 }
 add_action( 'bp_init', 'bpp_force_displayed_blog_template', 99 );
 
+/**
+ * [aperture_add_theme_caps description]
+ * @return [type] [description]
+ */
+function bpp_add_theme_caps() {
+	$role = get_role( 'editor' );
+	$role->add_cap( 'edit_theme_options' );
+	$role->add_cap( 'manage_options' );
+}
+add_action( 'admin_init', 'bpp_add_theme_caps');
+
+/**
+ * [aperture_admin_to_editor description]
+ * @param  [type] $blog_id [description]
+ * @param  [type] $user_id [description]
+ * @return [type]          [description]
+ */
+function bpp_admin_to_editor( $blog_id, $user_id ) {
+	switch_to_blog( $blog_id );
+	$user = new WP_User( $user_id );
+	if ( $user->exists() ) {
+		//$user->set_role( 'administrator' );
+		$user->set_role( 'editor' );
+	}
+	restore_current_blog();
+}
+add_action( 'wpmu_new_blog', 'bpp_admin_to_editor', 10, 2 );
+
+
+
+
 /* END Custom Functions */
 
 /**
